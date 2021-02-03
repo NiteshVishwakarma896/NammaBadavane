@@ -62,6 +62,19 @@ module.exports = {
                 error:err
             }).status(404);
         })
-    }
+    },
+    getComplainAll:async(req,res,next)=>{
+        const id = req.user._id
+        Complains.find({"customer_id":id})
+        .then(data=>{
+            return res.json({data:data}).status(200);
+        })
+        .catch(err=>{
+            return res.json({
+                message:"No records found in database",
+                error:err
+            }).status(404);
+        })
+    },
    
 }

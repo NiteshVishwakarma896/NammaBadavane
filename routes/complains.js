@@ -10,6 +10,8 @@ router.route('/').get(ComplainController.getAllComplains);
 
 router.route('/:id').get(ComplainController.getComplain);
 
+router.route('/all').get(passport.authenticate('jwt-local',{session:false}),ComplainController.getComplainAll);
+
 router.route('/register').post(passport.authenticate('jwt-local',{session:false}),upload.single("file"),ComplainController.registerComplain);
 
 

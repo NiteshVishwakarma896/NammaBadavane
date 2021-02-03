@@ -10,6 +10,8 @@ router.route('/').get(SolutionController.getAllSolutions);
 
 router.route('/:id').get(SolutionController.getSolution);
 
+router.route('/all').get(passport.authenticate('jwt',{session:false}),SolutionController.getSolutionAll);
+
 router.route('/register').post(passport.authenticate('jwt',{session:false}),upload.single("file"),SolutionController.registerSolution);
 
 
