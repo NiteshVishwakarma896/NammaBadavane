@@ -1,0 +1,45 @@
+{
+    "name": "nb-services",
+    "version": "1.0.0",
+    "description": "NammaBadavane Restful Services",
+    "main": "server.js",
+    "scripts": {
+        "dev": "nodemon server.js",
+        "start": "node server.js"
+    },
+    "keywords": [
+        "Restful",
+        "Services",
+        "API"
+    ],
+    "author": "Nitesh Vishwakarma",
+    "license": "ISC",
+    "dependencies": {
+        "@hapi/joi": "^15.0.3",
+        "aws-sdk": "^2.833.0",
+        "bcrypt-nodejs": "0.0.3",
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-promise-router": "^4.0.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.11.11",
+        "morgan": "^1.10.0",
+        "multer": "^1.4.2",
+        "multer-s3": "^2.9.0",
+        "node-fetch": "^2.6.1",
+        "otp-generator": "^2.0.0",
+        "passport": "^0.4.1",
+        "passport-facebook-token": "^4.0.0",
+        "passport-google-oauth": "^2.0.0",
+        "passport-google-plus-token": "^2.1.0",
+        "passport-jwt": "^4.0.0",
+        "passport-local": "^1.0.0",
+        "urlencode": "^1.1.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.7"
+    }
+}
