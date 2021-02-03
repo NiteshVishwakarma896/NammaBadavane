@@ -39,7 +39,7 @@ module.exports = {
                 sub:admin._id,
                 iat:new Date().getTime(),
                 exp:new Date().setDate(new Date().getDate()+1) //current date & time + 1 day ahead
-            },process.env.JWT_SECRET)             
+            },process.env.JWT_ADMIN_SECRET)             
                return res.json({message:"A new adminstrator account has been created !",token:token}).status(201);
            }
            else{

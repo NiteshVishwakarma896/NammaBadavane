@@ -166,7 +166,7 @@ module.exports = {
                         sub:findCustomer._id,
                         iat:new Date().getTime(),
                         exp:new Date().setDate(new Date().getDate()+180) //current date & time + 12 months ahead
-                    },process.env.JWT_SECRET)
+                    },process.env.JWT_LOCAL_SECRET)
 
                     res.json({message:"Your contact has been successfully verified !",token:token,id:findCustomer._id}).status(200);
                 }
