@@ -13,12 +13,12 @@ module.exports = {
                 var solutionImageLocation = req.file.location;
             }
             else{
-                return res.json({error:"An image or video is required to provide a solution !"}).status(400);
+                return res.json({error:"An image or video is required to provide a solution !",status:"400"}).status(400);
             }
             const findComplain = await Complains.findOne({"_id":req.body.complain_id});
             if(!findComplain)
             {
-                return res.json({error:"Sorry we did not find the complain, please try again later !"}).status(500);
+                return res.json({error:"Sorry we did not find the complain, please try again later !",status:"500"}).status(500);
             }
             else
             {
@@ -38,7 +38,7 @@ module.exports = {
                 
                 if(!result){
                     
-                    return res.json({error:"Sorry we are unable to process your solution, please try again later !"}).status(500);
+                    return res.json({error:"Sorry we are unable to process your solution, please try again later !",status:"500"}).status(500);
                 }
                 else{
                     Complains.updateOne({_id:findComplain._id},{$set:{
@@ -54,15 +54,15 @@ module.exports = {
                             });  
                             const checkStats = notification.save();
                             if(!checkStats){
-                                return res.json({message:"Sorry we are unable to process your solution & unale to notify customer, please try again later !"}).status(500);
+                                return res.json({message:"Sorry we are unable to process your solution & unale to notify customer, please try again later !",status:"500"}).status(500);
                             }
                             else{
-                                return res.json({message:"Your solution to the problem has been successfully solved"}).status(201);
+                                return res.json({message:"Your solution to the problem has been successfully solved",status:"201"}).status(201);
                             }
                         }
                     })
                     .catch(err=>{
-                        res.json({error:err}).status(500);
+                        res.json({error:err,status:"500"}).status(500);
                     });
                    
                 }
@@ -77,12 +77,13 @@ module.exports = {
     getAllSolutions: async(req,res,next)=>{
         Solutions.find()
         .then(data=>{
-            return res.json({data:data}).status(200);
+            return res.json({data:data,status:"200"}).status(200);
         })
         .catch(err => {
             return res.json({
                 message:"No records found in database",
-                error:err
+                error:err,
+                status:"404"
             }).status(404);
         })
 
@@ -92,12 +93,13 @@ module.exports = {
         const id = req.params.id
         Solutions.findOne({"_id":id})
         .then(data=>{
-            return res.json({data:data}).status(200);
+            return res.json({data:data,status:"200"}).status(200);
         })
         .catch(err=>{
             return res.json({
                 message:"No records found in database",
-                error:err
+                error:err,
+                status:"404"
             }).status(404);
         })
     },
@@ -106,12 +108,13 @@ module.exports = {
         const id = req.user._id
         Solutions.findOne({"customer_id":id})
         .then(data=>{
-            return res.json({data:data}).status(200);
+            return res.json({data:data,status:"200"}).status(200);
         })
         .catch(err=>{
             return res.json({
                 message:"No records found in database",
-                error:err
+                error:err,
+                status:"404"
             }).status(404);
         })
     }

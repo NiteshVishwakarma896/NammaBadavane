@@ -26,10 +26,10 @@ module.exports = {
             });
             const result = await complain.save();
             if(!result){
-                return res.json({error:"Sorry we are unable to process your complain, please try again later !"}).status(500);
+                return res.json({error:"Sorry we are unable to process your complain, please try again later !",status:"500"}).status(500);
             }
             else{
-                return res.json({message:"Your complain has been successfully registered & in progress"}).status(201);
+                return res.json({message:"Your complain has been successfully registered & in progress",status:"201"}).status(201);
             }
         } catch (error) {
             next(error);
@@ -39,12 +39,13 @@ module.exports = {
     getAllComplains: async(req,res,next)=>{
         Complains.find()
         .then(data=>{
-            return res.json({data:data}).status(200);
+            return res.json({data:data,status:"200"}).status(200);
         })
         .catch(err => {
             return res.json({
                 message:"No records found in database",
-                error:err
+                error:err,
+                status:"404"
             }).status(404);
         })
 
@@ -54,12 +55,13 @@ module.exports = {
         const id = req.params.id
         Complains.findOne({"_id":id})
         .then(data=>{
-            return res.json({data:data}).status(200);
+            return res.json({data:data,status:"200"}).status(200);
         })
         .catch(err=>{
             return res.json({
                 message:"No records found in database",
-                error:err
+                error:err,
+                status:"404"
             }).status(404);
         })
     },
@@ -67,12 +69,13 @@ module.exports = {
         const id = req.user._id
         Complains.find({"customer_id":id})
         .then(data=>{
-            return res.json({data:data}).status(200);
+            return res.json({data:data,status:"200"}).status(200);
         })
         .catch(err=>{
             return res.json({
                 message:"No records found in database",
-                error:err
+                error:err,
+                status:"404"
             }).status(404);
         })
     },

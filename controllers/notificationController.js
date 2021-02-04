@@ -9,12 +9,13 @@ module.exports = {
     getNotifications: async(req,res,next)=>{
         Notifications.find()
         .then(data=>{
-            return res.json({data:data}).status(200);
+            return res.json({data:data,status:"200"}).status(200);
         })
         .catch(err => {
             return res.json({
                 message:"No records found in database",
-                error:err
+                error:err,
+                status:"404"
             }).status(404);
         })
 
@@ -46,10 +47,10 @@ module.exports = {
                     'body':JSON.stringify(notification_body)
                 })
                 .then(()=>{
-                    return res.json({"message":"Notifications sent successfully !"}).status(200);
+                    return res.json({"message":"Notifications sent successfully !",status:"200"}).status(200);
                 })
                 .catch(err=>{
-                    return res.json({"error":err}).status(400);
+                    return res.json({"error":err,status:"400"}).status(400);
                 })
               }
              
@@ -57,12 +58,13 @@ module.exports = {
             .catch(err=>{
                 return res.json({
                     message:"No records found in database",
-                    error:err
+                    error:err,
+                    status:"404"
                 }).status(404);
             })
         }
         else{
-            return res.json({"error":"No registration fcm token found !"}).status(404);
+            return res.json({"error":"No registration fcm token found !",status:"404"}).status(404);
         }
        
     }

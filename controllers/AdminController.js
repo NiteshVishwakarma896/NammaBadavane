@@ -18,7 +18,7 @@ module.exports = {
             const findAdmin = await Admins.findOne({"email":email});
             if(findAdmin)
             {
-                return res.json({error:'This email is already in use, please try with another email !'}).status(403);
+                return res.json({error:'This email is already in use, please try with another email !',status:"403"}).status(403);
             }
             
 
@@ -40,10 +40,10 @@ module.exports = {
                 iat:new Date().getTime(),
                 exp:new Date().setDate(new Date().getDate()+1) //current date & time + 1 day ahead
             },process.env.JWT_ADMIN_SECRET)             
-               return res.json({message:"A new adminstrator account has been created !",token:token}).status(201);
+               return res.json({message:"A new adminstrator account has been created !",token:token,status:"201"}).status(201);
            }
            else{
-                return res.json({"message":"Sorry we are unable to process request ! Please try again later"}).status(500); 
+                return res.json({"message":"Sorry we are unable to process request ! Please try again later",status:"500"}).status(500); 
            }
           
 
@@ -62,7 +62,7 @@ module.exports = {
                 exp:new Date().setDate(new Date().getDate()+1) //current date & time + 1 day ahead
             },process.env.JWT_ADMIN_SECRET)
 
-            return res.json({message:"Successfully Signed In !",token:token}).status(200);    
+            return res.json({message:"Successfully Signed In !",token:token,status:"200"}).status(200);    
               
         } catch (error) {
             next(error);
@@ -104,11 +104,11 @@ module.exports = {
                             }})
                             .then(result=>{
                                 if(result.ok === 1){      
-                                return res.json({message:"Your profile has been successfully updated !"}).status(200);
+                                return res.json({message:"Your profile has been successfully updated !",status:"200"}).status(200);
                                 }
                             })
                             .catch(err=>{
-                                res.json({error:err}).status(500);
+                                res.json({error:err,status:"500"}).status(500);
                             });
                         }
                       
@@ -117,7 +117,7 @@ module.exports = {
                    
                     
                 }
-                else{ return res.json({"message":"No admin found ! Please try again later"}).status(404); }
+                else{ return res.json({"message":"No admin found ! Please try again later",status:"404"}).status(404); }
            
 
         } catch (error) {
@@ -130,16 +130,19 @@ module.exports = {
             const findAdmin = await Admins.findOne({"_id":req.user.id});
             if(findAdmin){
                 
-                res.json({"data":{
+                res.json({"data":
+                    {
                     "name":findAdmin.name,
                     "email":findAdmin.email,
                     "contact":findAdmin.contact,
                     "profile":findAdmin.profile
-                }}).status(200);
+                    },
+                    status:"200"
+                }).status(200);
 
             }
             else{
-                res.json({"message":"No admin found ! Please try again later"}).status(200);
+                res.json({"message":"No admin found ! Please try again later",status:"200"}).status(200);
             }
         } catch (error) {
             next(error);

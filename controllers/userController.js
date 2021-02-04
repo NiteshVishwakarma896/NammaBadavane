@@ -16,7 +16,7 @@ module.exports = {
             const findCustomer = await Customers.findOne({"contact":contact});
             if(findCustomer)
             {
-                return res.json({error:'This contact is already in use, please try with another contact !'}).status(403);
+                return res.json({error:'This contact is already in use, please try with another contact !',status:"403"}).status(403);
             }
             const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
 
@@ -57,7 +57,7 @@ module.exports = {
            }
           
 
-        return res.json({message:"OTP has been sent to your registered contact number !"}).status(201);
+        return res.json({message:"OTP has been sent to your registered contact number !",status:"201"}).status(201);
 
         } catch (error) {
             next(error);
@@ -78,7 +78,7 @@ module.exports = {
                         exp:new Date().setDate(new Date().getDate()+180) //current date & time + 12 months ahead
                     },process.env.JWT_LOCAL_SECRET)
 
-                    return res.json({message:"Successfully Signed In !",token:token}).status(200);    
+                    return res.json({message:"Successfully Signed In !",token:token,status:"200"}).status(200);    
                 }
             })
             .catch(err=>{
@@ -100,7 +100,7 @@ module.exports = {
             const findCustomer = await Customers.findOne({"contact":contact});
             if(!findCustomer)
             {
-                res.json({error:'Invalid phone number !, try to login with registered number'}).status(403);
+                res.json({error:'Invalid phone number !, try to login with registered number',status:"403"}).status(403);
             }
             else{
 
@@ -133,12 +133,12 @@ module.exports = {
                         }                    
                         http.request(options, callback).end();
 
-                        res.json({message:"An OTP has been sent to your registered mobile number !"}).status(200);
+                        res.json({message:"An OTP has been sent to your registered mobile number !",status:"200"}).status(200);
                     }
                 })
                 .catch(err=>{
                     
-                    res.json({error:err}).status(500);
+                    res.json({error:err,status:"500"}).status(500);
                 })
                
             }
@@ -155,7 +155,7 @@ module.exports = {
             const findCustomer = await Customers.findOne({"otp":otp});
             if(!findCustomer)
             {
-                return res.json({error:'Invalid OTP ! Please enter a valid OTP'}).status(403);
+                return res.json({error:'Invalid OTP ! Please enter a valid OTP',status:"403"}).status(403);
             }
             Customers.updateOne({_id:findCustomer._id},{$set:{otp:null,verified:"Verified"}})
             .then(result=>{
@@ -168,12 +168,12 @@ module.exports = {
                         exp:new Date().setDate(new Date().getDate()+180) //current date & time + 12 months ahead
                     },process.env.JWT_LOCAL_SECRET)
 
-                    res.json({message:"Your contact has been successfully verified !",token:token,id:findCustomer._id}).status(200);
+                    res.json({message:"Your contact has been successfully verified !",token:token,id:findCustomer._id,status:"200"}).status(200);
                 }
             })
             .catch(err=>{
                 
-                res.json({error:err}).status(500);
+                res.json({error:err,status:"500"}).status(500);
             })
            
            
@@ -202,19 +202,19 @@ module.exports = {
                   
                     if(result.ok === 1){                     
                        
-                       return res.json({message:"Your profile has been successfully updated !"}).status(200);
+                       return res.json({message:"Your profile has been successfully updated !",status:"200"}).status(200);
                     }
                 })
                 .catch(err=>{
                 
-                    res.json({error:err}).status(500);
+                    res.json({error:err,status:"500"}).status(500);
                 });
                
 
             }
             else{
 
-                return res.json({"message":"No customer found ! Please try again later"}).status(404);
+                return res.json({"message":"No customer found ! Please try again later",status:"404"}).status(404);
             }
         } catch (error) {
             next(error);
@@ -244,7 +244,7 @@ module.exports = {
                       
                       s3.deleteObject(params, (error, data) => {
                         if (error) {
-                          res.status(500).json({error:error});
+                          res.status(500).json({error:error,status:"500"});
                         }
                         else{
                             Customers.updateOne({_id:findCustomer._id},{$set:{
@@ -256,11 +256,11 @@ module.exports = {
                             }})
                             .then(result=>{
                                 if(result.ok === 1){      
-                                return res.json({message:"Your profile has been successfully updated !"}).status(200);
+                                return res.json({message:"Your profile has been successfully updated !",status:"200"}).status(200);
                                 }
                             })
                             .catch(err=>{
-                                res.json({error:err}).status(500);
+                                res.json({error:err,status:"500"}).status(500);
                             });
                         }
                       
@@ -269,7 +269,7 @@ module.exports = {
                     
                     
                 }
-                else{ return res.json({"message":"No customer found ! Please try again later"}).status(404); }
+                else{ return res.json({"message":"No customer found ! Please try again later",status:"404"}).status(404); }
            
 
         } catch (error) {
@@ -291,11 +291,11 @@ module.exports = {
                     "address":findCustomer.address,
                     "location":findCustomer.location,
                     "verified":findCustomer.verified,
-                }}).status(200);
+                },status:"200"}).status(200);
 
             }
             else{
-                res.json({"message":"No customer found ! Please try again later"}).status(200);
+                res.json({"message":"No customer found ! Please try again later",status:"200"}).status(200);
             }
         } catch (error) {
             next(error);

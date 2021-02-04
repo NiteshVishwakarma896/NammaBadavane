@@ -12,7 +12,7 @@ module.exports = {
                 var departmentImageLocation = req.file.location;
             }
             else{
-                return res.json({error:"An image is required to register a department !"}).status(400);
+                return res.json({error:"An image is required to register a department !",status:"400"}).status(400);
             }
             const findDepartment = await Departments.findOne({"title":req.body.title});
             if(!findDepartment)
@@ -28,17 +28,17 @@ module.exports = {
                 
                 if(!result){
                     
-                    return res.json({error:"Sorry we are unable to add new department, please try again later !"}).status(500);
+                    return res.json({error:"Sorry we are unable to add new department, please try again later !",status:"500"}).status(500);
                 }
                 else{
-                    return res.json({message:req.body.title+" has been created"}).status(201);
+                    return res.json({message:req.body.title+" has been created !",status:"201"}).status(201);
                    
                 }
                
             }
             else
             {
-                return res.json({error:"Department with this name already exist, please try again with diffrent name !"}).status(500);
+                return res.json({error:"Department with this name already exist, please try again with diffrent name !",status:"500"}).status(500);
             }
             
         } catch (error) {
@@ -50,12 +50,13 @@ module.exports = {
     getAllDepartments: async(req,res,next)=>{
         Departments.find()
         .then(data=>{
-            return res.json({data:data}).status(200);
+            return res.json({data:data,status:"200"}).status(200);
         })
         .catch(err => {
             return res.json({
                 message:"No records found in database",
-                error:err
+                error:err,
+                status:"404"
             }).status(404);
         })
 
@@ -65,12 +66,13 @@ module.exports = {
         const id = req.params.id
         Departments.findOne({"_id":id})
         .then(data=>{
-            return res.json({data:data}).status(200);
+            return res.json({data:data,status:"200"}).status(200);
         })
         .catch(err=>{
             return res.json({
                 message:"No records found in database",
-                error:err
+                error:err,
+                status:"404"
             }).status(404);
         })
     },
@@ -82,7 +84,7 @@ module.exports = {
             var departmentImageLocation = req.file.location;
         }
         else{
-            return res.json({error:"An image is required to update a department !"}).status(400);
+            return res.json({error:"An image is required to update a department !",status:"400"}).status(400);
         }
         const findDepartment = await Departments.findOne({"_id":id});
         if(findDepartment){      
@@ -110,11 +112,11 @@ module.exports = {
                     }})
                     .then(result=>{
                         if(result.ok === 1){      
-                        return res.json({message:"Your department has been successfully updated !"}).status(200);
+                        return res.json({message:"Your department has been successfully updated !",status:"200"}).status(200);
                         }
                     })
                     .catch(err=>{
-                        res.json({error:err}).status(500);
+                        res.json({error:err,status:"500"}).status(500);
                     });
                 }
                 console.log("File has been deleted successfully");
@@ -124,7 +126,7 @@ module.exports = {
             
             
         }
-        else{ return res.json({"message":"No departments found ! Please try again later"}).status(404); }
+        else{ return res.json({"message":"No departments found ! Please try again later",status:"404"}).status(404); }
     }
    
 }
