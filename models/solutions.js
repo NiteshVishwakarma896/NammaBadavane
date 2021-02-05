@@ -28,10 +28,10 @@ const solutionSchema =  new Schema({
         location: {
             type: {
               type: String, // Don't do `{ location: { type: String } }`
-              enum: ['Point']
+              enum: ['Point'],
             },
             coordinates: {
-              type: [Number]
+              type: [Number],
             }
         },
         department:{

@@ -22,6 +22,7 @@ module.exports = {
             }
             else
             {
+                console.log(array(req.body.location))
                 const solution = new Solutions({
                     admin_id:req.user._id,
                     customer_id:req.body.customer_id,
@@ -29,7 +30,7 @@ module.exports = {
                     title:  req.body.title,
                     description:    req.body.description,
                     file:  solutionImageLocation,
-                    location:  findComplain.location,
+                    location:  req.body.location,
                     department:  findComplain.department,
                     sub_department:  findComplain.sub_department
                 });
@@ -106,7 +107,8 @@ module.exports = {
     //To get a particular solution
     getSolutionAll:async(req,res,next)=>{
         const id = req.user._id
-        Solutions.findOne({"customer_id":id})
+        Solutions.find()
+        .where('customer_id').equals(id)
         .then(data=>{
             return res.json({data:data,status:"200"}).status(200);
         })
