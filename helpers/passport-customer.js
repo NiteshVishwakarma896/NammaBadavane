@@ -15,6 +15,7 @@ passport.use('jwt-local',
       try {
         //Find the user specified in token
         const Customer = await Customers.findById(payload.sub);
+        
         if (!Customer) {
           done(null, false);
         }

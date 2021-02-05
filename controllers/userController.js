@@ -151,15 +151,19 @@ module.exports = {
     //To verify and reset OTP
     otpVerification: async(req,res,next)=>{
         try {
-            const {otp} = req.body; 
+            const {otp} = req.body;
+
             const findCustomer = await Customers.findOne({"otp":otp});
             if(!findCustomer)
             {
+
                 return res.json({error:'Invalid OTP ! Please enter a valid OTP',status:"403"}).status(403);
             }
-            Customers.updateOne({_id:findCustomer._id},{$set:{otp:null,verified:"Verified"}})
+
+            Customers.updateOne({_id:findCustomer._id},{$set:{otp:"null",verified:"Verified"}})
             .then(result=>{
                
+                console.log(result)
                 if(result.ok === 1){
                     const token = JWT.sign({
                         iss:'NammaBadavane Customers',
@@ -172,7 +176,6 @@ module.exports = {
                 }
             })
             .catch(err=>{
-                
                 res.json({error:err,status:"500"}).status(500);
             })
            

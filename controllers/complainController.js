@@ -65,17 +65,21 @@ module.exports = {
             }).status(404);
         })
     },
-    getComplainAll:async(req,res,next)=>{
+    getUserComplain:async(req,res,next)=>{
+
         const id = req.user._id
-        Complains.find({"customer_id":id})
+
+        Complains.find()
+        .where('customer_id').equals(id)
         .then(data=>{
             return res.json({data:data,status:"200"}).status(200);
         })
         .catch(err=>{
+            console.log(err)
             return res.json({
                 message:"No records found in database",
                 error:err,
-                status:"404"
+                status:"Error In data Fetching"
             }).status(404);
         })
     },

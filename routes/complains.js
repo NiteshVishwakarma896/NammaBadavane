@@ -8,13 +8,13 @@ const upload = require('../helpers/complainFileUpload');
 
 router.route('/').get(ComplainController.getAllComplains);
 
-router.route('/:id').get(ComplainController.getComplain);
 
-router.route('/all').get(passport.authenticate('jwt-local',{session:false}),ComplainController.getComplainAll);
+router.route('/user-complains').get(passport.authenticate('jwt-local',{session:false}),ComplainController.getUserComplain);
 
 router.route('/register').post(passport.authenticate('jwt-local',{session:false}),upload.single("file"),ComplainController.registerComplain);
 
 
+router.route('/:id').get(ComplainController.getComplain);
 
 
 module.exports = router;
