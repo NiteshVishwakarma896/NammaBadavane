@@ -67,7 +67,7 @@ module.exports = {
     signIn: async(req,res,next)=>{
         try {
            
-            Customers.updateOne({_id:req.user._id},{$set:{otp:null}})
+            Customers.updateOne({_id:req.user._id},{$set:{otp:"No OTP"}})
             .then(result=>{
                
                 if(result.ok === 1){
@@ -160,7 +160,7 @@ module.exports = {
                 return res.json({error:'Invalid OTP ! Please enter a valid OTP',status:"403"}).status(403);
             }
 
-            Customers.updateOne({_id:findCustomer._id},{$set:{otp:"null",verified:"Verified"}})
+            Customers.updateOne({_id:findCustomer._id},{$set:{otp:"No OTP",verified:"Verified"}})
             .then(result=>{
                
                 console.log(result)
