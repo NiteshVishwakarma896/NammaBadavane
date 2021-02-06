@@ -18,7 +18,7 @@ module.exports = {
             {
                 return res.json({error:'This contact is already in use, please try with another contact !',status:"403"}).status(403);
             }
-            const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
+            const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets:false, digits:true });
 
             const customer = new Customers({                
                     contact:contact,
@@ -104,7 +104,7 @@ module.exports = {
             }
             else{
 
-                const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
+                const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets:false, digits:true});
                 Customers.updateOne({_id:findCustomer._id},{$set:{otp:otp}})
                 .then(result=>{
                 

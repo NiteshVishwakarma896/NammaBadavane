@@ -44,13 +44,15 @@ app.use('/complain',require('./routes/complains'));
 app.use('/solution',require('./routes/solutions'));
 app.use('/department',require('./routes/departments'));
 app.use('/notification',require('./routes/notification'));
+app.use('/feedback',require('./routes/feedbacks'));
 
 
 
 //wild card route
 app.get('*', (req, res) => {
     res.json({
-        message:"The endpoint you are trying to access is not avaliable !"
+        message:"The endpoint you are trying to access is not avaliable !",
+        status:"404"
     }).status(404);
 });
 
