@@ -31,7 +31,8 @@ const userSchema =  new Schema({
         },
         otp:{
             type:String,
-            unique:true
+            unique:true,
+            sparse:true
         },
         verified:{
             type:String,

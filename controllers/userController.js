@@ -51,7 +51,7 @@ module.exports = {
                     });
                 }                    
                 //console.log('hello js'))
-                http.request(options, callback).end();
+                var response = http.request(options, callback).end();
 
 
            }
@@ -67,7 +67,7 @@ module.exports = {
     signIn: async(req,res,next)=>{
         try {
            
-            Customers.updateOne({_id:req.user._id},{$set:{otp:"No OTP"}})
+            Customers.updateOne({_id:req.user._id},{$set:{otp:req.body.otp}})
             .then(result=>{
                
                 if(result.ok === 1){
@@ -82,7 +82,7 @@ module.exports = {
                 }
             })
             .catch(err=>{
-                
+                console.log(err)
                 res.json({error:err}).status(500);
             })
 
@@ -131,7 +131,8 @@ module.exports = {
                             //console.log(str);
                             });
                         }                    
-                        http.request(options, callback).end();
+                         var response = http.request(options, callback).end();
+                         
 
                         res.json({message:"An OTP has been sent to your registered mobile number !",status:"200"}).status(200);
                     }
@@ -160,7 +161,7 @@ module.exports = {
                 return res.json({error:'Invalid OTP ! Please enter a valid OTP',status:"403"}).status(403);
             }
 
-            Customers.updateOne({_id:findCustomer._id},{$set:{otp:"No OTP",verified:"Verified"}})
+            Customers.updateOne({_id:findCustomer._id},{$set:{otp:findCustomer.otp,verified:"Verified"}})
             .then(result=>{
                
                 console.log(result)
