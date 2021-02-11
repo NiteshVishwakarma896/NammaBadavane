@@ -25,7 +25,7 @@ const upload = multer({
     dirname: '/customer-profiles',
     acl: "public-read",
     s3:s3,
-    size:"52428800"
+    limits: { fileSize: 1024 * 1024 * 50 },
     bucket: process.env.S3_BUCKET,
     metadata: function (req, profile, cb) {
       cb(null, { fieldName: profile.fieldname });
