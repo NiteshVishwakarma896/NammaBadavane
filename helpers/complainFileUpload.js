@@ -26,6 +26,7 @@ const upload = multer({
     acl: "public-read",
     s3:s3,
     bucket: process.env.S3_BUCKET,
+    limits: { fileSize: 1024 * 1024 * 50 },
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
