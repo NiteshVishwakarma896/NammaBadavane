@@ -25,6 +25,7 @@ const upload = multer({
     dirname: '/customer-profiles',
     acl: "public-read",
     s3:s3,
+    size:"52428800"
     bucket: process.env.S3_BUCKET,
     metadata: function (req, profile, cb) {
       cb(null, { fieldName: profile.fieldname });
@@ -32,10 +33,6 @@ const upload = multer({
     key: function (req, profile, cb) {
       var fullPath = 'customer-profiles/'+ Date.now().toString()+profile.originalname;
       cb(null,fullPath);
-    },
-    resize: {
-              width: 600,
-              height: 400,
     }
   }),
 });
