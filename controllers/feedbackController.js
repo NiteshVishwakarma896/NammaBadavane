@@ -5,6 +5,7 @@ require('dotenv').config();
 module.exports = {
     registerFeedback:async(req,res,next)=>{
         try {
+        	console.log(req.body)
             const feedback = new Feedbacks({
                 customer_id:req.user._id,
                 description:    req.body.description,

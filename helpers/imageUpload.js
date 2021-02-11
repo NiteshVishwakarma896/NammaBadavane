@@ -33,6 +33,10 @@ const upload = multer({
       var fullPath = 'customer-profiles/'+ Date.now().toString()+profile.originalname;
       cb(null,fullPath);
     },
+    resize: {
+              width: 600,
+              height: 400,
+    }
   }),
 });
 

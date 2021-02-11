@@ -245,7 +245,6 @@ module.exports = {
                           Bucket: process.env.S3_BUCKET,
                           Key: `customer-profiles/${filenameToRemove}`
                       };
-                      
                       s3.deleteObject(params, (error, data) => {
                         if (error) {
                           res.status(500).json({error:error,status:"500"});
