@@ -27,13 +27,7 @@ const complainSchema =  new Schema({
             required:true
         },
         location: {
-            type: {
-              type: String, // Don't do `{ location: { type: String } }`
-              enum: ['Point']
-            },
-            coordinates: {
               type: [Number]
-            }
         },
         department:{
             type:String,

@@ -26,13 +26,7 @@ const solutionSchema =  new Schema({
             type:String
         },
         location: {
-            type: {
-              type: String, // Don't do `{ location: { type: String } }`
-              enum: ['Point'],
-            },
-            coordinates: {
-              type: [Number],
-            }
+              type: [Number]
         },
         department:{
             type:String,

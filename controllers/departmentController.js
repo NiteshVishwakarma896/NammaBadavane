@@ -21,7 +21,8 @@ module.exports = {
                     title:  req.body.title,
                     description:    req.body.description,
                     file:  departmentImageLocation,
-                    sub_department:  req.body.sub_department
+                    sub_department:  req.body.sub_department,
+                    sub_department_kannada:  req.body.sub_department_kannada,
                 });
                 
                 const result = await department.save();

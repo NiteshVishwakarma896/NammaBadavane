@@ -17,6 +17,9 @@ const departmentSchema =  new Schema({
         sub_department:{
             type:[String],
         },       
+        sub_department_kannada:{
+            type:[String],
+        },       
         status:{
             type:String,
             default:"Active"
