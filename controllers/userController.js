@@ -32,7 +32,7 @@ module.exports = {
                 var msg = urlencode(strmsg); 
                 var number = "91"+contact;
                 var apikey = process.env.TXT_LOCAL_API_KEY;
-                var sender='TXTLCL';
+                var sender='NAMMAB';
                 var data='apikey='+apikey+'&sender='+sender+'&numbers='+number+'&message='+msg
                 var options = {
                     host: 'api.textlocal.in',
@@ -113,7 +113,7 @@ module.exports = {
                         var msg = urlencode(strmsg); 
                         var number = "91"+contact;
                         var apikey = process.env.TXT_LOCAL_API_KEY;
-                        var sender='TXTLCL';
+                        var sender='NAMMAB';
                         var data='apikey='+apikey+'&sender='+sender+'&numbers='+number+'&message='+msg
                         var options = {
                             host: 'api.textlocal.in',

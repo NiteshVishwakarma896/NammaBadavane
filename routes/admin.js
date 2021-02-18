@@ -14,5 +14,13 @@ router.route('/profile').get(passport.authenticate('jwt',{session:false}),AdminC
 
 router.route('/profile-update').post(upload.single("profile"),passport.authenticate('jwt',{session:false}),AdminController.profileUpdate);
 
+router.route('/admins').get(passport.authenticate('jwt',{session:false}),AdminController.getAdmins);
+
+router.route('/users').get(passport.authenticate('jwt',{session:false}),AdminController.getUsers);
+
+router.route('/admins/:id').get(passport.authenticate('jwt',{session:false}),AdminController.getAdmin);
+
+router.route('/users/:id').get(passport.authenticate('jwt',{session:false}),AdminController.getUser);
+
 
 module.exports = router;

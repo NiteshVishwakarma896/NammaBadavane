@@ -1,4 +1,5 @@
 const Admins = require('../models/admin');
+const Users = require('../models/customers');
 const JWT =  require('jsonwebtoken');
 const aws = require("aws-sdk");
 require('dotenv').config();
@@ -144,6 +145,77 @@ module.exports = {
             else{
                 res.json({"message":"No admin found ! Please try again later",status:"200"}).status(200);
             }
+        } catch (error) {
+            next(error);
+        }
+    },
+    getAdmins: async(req,res,next)=>{
+        try {
+            Admins.find()
+        .then(data=>{
+            return res.json({data:data,status:"200"}).status(200);
+        })
+        .catch(err => {
+            return res.json({
+                message:"No records found in database",
+                error:err,
+                status:"404"
+            }).status(404);
+        })
+        } catch (error) {
+            next(error);
+        }
+    },
+    getAdmin: async(req,res,next)=>{
+        try {
+            const id = req.params.id
+            Admins.findOne({"_id":id})
+            .then(data=>{
+                return res.json({data:data,status:"200"}).status(200);
+            })
+            .catch(err=>{
+                return res.json({
+                    message:"No records found in database",
+                    error:err,
+                    status:"404"
+                }).status(404);
+            })
+        
+        } catch (error) {
+            next(error);
+        }
+    },
+    getUsers: async(req,res,next)=>{
+        try {
+            Users.find()
+        .then(data=>{
+            return res.json({data:data,status:"200"}).status(200);
+        })
+        .catch(err => {
+            return res.json({
+                message:"No records found in database",
+                error:err,
+                status:"404"
+            }).status(404);
+        })
+        } catch (error) {
+            next(error);
+        }
+    },
+    getUser: async(req,res,next)=>{
+        try {
+            const id = req.params.id
+            Users.findOne({"_id":id})
+            .then(data=>{
+                return res.json({data:data,status:"200"}).status(200);
+            })
+            .catch(err=>{
+                return res.json({
+                    message:"No records found in database",
+                    error:err,
+                    status:"404"
+                }).status(404);
+            })
         } catch (error) {
             next(error);
         }
