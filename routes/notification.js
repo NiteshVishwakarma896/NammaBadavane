@@ -5,7 +5,7 @@ const passportConfig = require('../helpers/passport-customer');
 const NotificationController = require('../controllers/notificationController');
 
 
-router.route('/').post(passport.authenticate('jwt-local',{session:false}),NotificationController.getNotification);
+router.route('/').get(passport.authenticate('jwt-local',{session:false}),NotificationController.getNotification);
 
 
 
