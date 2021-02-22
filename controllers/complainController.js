@@ -6,12 +6,9 @@ module.exports = {
     //To register new complain once
     registerComplain: async(req,res,next)=>{
         try{
-            var complainImageLocation="null"; 
+            var complainImageLocation=null; 
             if(req.file){
                 var complainImageLocation = req.file.location;
-            }
-            else{
-                return res.json({error:"An image or video is required to register complain !"}).status(400);
             }
             const complain = new Complains({
                 customer_id:req.user._id,
