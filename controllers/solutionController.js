@@ -22,7 +22,7 @@ module.exports = {
             }
             else
             {
-                console.log(array(req.body.location))
+                // console.log(req.body.location)
                 const solution = new Solutions({
                     admin_id:req.user._id,
                     customer_id:req.body.customer_id,
@@ -30,8 +30,12 @@ module.exports = {
                     title:  req.body.title,
                     description:    req.body.description,
                     file:  solutionImageLocation,
-                    "location.coordinates":  req.body.latitude,
-                    "location.coordinates":  req.body.longitude,
+                    location: {
+                        coordinates:[
+                            req.body.latitude,
+                            req.body.longitude
+                        ] 
+                    },
                     department:  findComplain.department,
                     sub_department:  findComplain.sub_department
                 });
