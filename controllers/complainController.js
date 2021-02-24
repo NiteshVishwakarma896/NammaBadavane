@@ -1,7 +1,5 @@
 const Complains = require('../models/complains');
 require('dotenv').config();
-
-
 module.exports = {
     //To register new complain once
     registerComplain: async(req,res,next)=>{
@@ -34,6 +32,7 @@ module.exports = {
     },
     //To get list of all complains 
     getAllComplains: async(req,res,next)=>{
+        
         Complains.find()
         .then(data=>{
             return res.json({data:data,status:"200"}).status(200);

@@ -12,9 +12,9 @@ module.exports = {
             if(req.file){
                 var solutionImageLocation = req.file.location;
             }
-            else{
-                return res.json({error:"An image or video is required to provide a solution !",status:"400"}).status(400);
-            }
+            // else{
+            //     return res.json({error:"An image or video is required to provide a solution !",status:"400"}).status(400);
+            // }
             const findComplain = await Complains.findOne({"_id":req.body.complain_id});
             if(!findComplain)
             {
