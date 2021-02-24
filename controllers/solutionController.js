@@ -30,7 +30,8 @@ module.exports = {
                     title:  req.body.title,
                     description:    req.body.description,
                     file:  solutionImageLocation,
-                    location:  req.body.location,
+                    location.coordinates:  req.body.latitude,
+                    location.coordinates:  req.body.longitude,
                     department:  findComplain.department,
                     sub_department:  findComplain.sub_department
                 });
