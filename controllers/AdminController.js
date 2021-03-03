@@ -73,7 +73,7 @@ module.exports = {
     //Profile Update Route for users
     profileUpdate: async(req,res,next)=>{
         try {
-
+            console.log(req.file.location)
             var profileLocation="null"; 
             if(req.file){
                 var profileLocation = req.file.location;

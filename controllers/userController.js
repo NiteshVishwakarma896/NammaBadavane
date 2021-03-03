@@ -234,26 +234,49 @@ module.exports = {
             }
             const findCustomer = await Customers.findOne({"_id":req.user.id});
             
-                if(findCustomer){      
-                    const s3 = new aws.S3({
-                        secretAccessKey: process.env.S3_SECRET,
-                        accessKeyId: process.env.S3_ACCESS_KEY,
-                        region: process.env.S3_REGION,
-                      });
-                      var filenameToRemove = findCustomer.profile.split('/').slice(-1)[0];
-                      const params = {
-                          Bucket: process.env.S3_BUCKET,
-                          Key: `customer-profiles/${filenameToRemove}`
-                      };
-                      s3.deleteObject(params, (error, data) => {
-                        if (error) {
-                          res.status(500).json({error:error,status:"500"});
-                        }
-                        else{
+                if(findCustomer){   
+                    if(profileLocation != "null")
+                    {
+                        const s3 = new aws.S3({
+                            secretAccessKey: process.env.S3_SECRET,
+                            accessKeyId: process.env.S3_ACCESS_KEY,
+                            region: process.env.S3_REGION,
+                          });
+                          var filenameToRemove = findCustomer.profile.split('/').slice(-1)[0];
+                          const params = {
+                              Bucket: process.env.S3_BUCKET,
+                              Key: `customer-profiles/${filenameToRemove}`
+                          };
+                          s3.deleteObject(params, (error, data) => {
+                            if (error) {
+                              res.status(500).json({error:error,status:"500"});
+                            }
+                            else{
+                                Customers.updateOne({_id:findCustomer._id},{$set:{
+                                    name:req.body.name,
+                                    email:req.body.email,
+                                    profile:profileLocation,
+                                    address:req.body.address,
+                                    location:req.body.location,
+                                }})
+                                .then(result=>{
+                                    if(result.ok === 1){      
+                                    return res.json({message:"Your profile has been successfully updated !",status:"200"}).status(200);
+                                    }
+                                })
+                                .catch(err=>{
+                                    res.json({error:err,status:"500"}).status(500);
+                                });
+                            }
+                          
+                          });
+                    }   
+                    else{
+                            var profileOld = findCustomer.profile;
                             Customers.updateOne({_id:findCustomer._id},{$set:{
                                 name:req.body.name,
                                 email:req.body.email,
-                                profile:profileLocation,
+                                profile:profileOld,
                                 address:req.body.address,
                                 location:req.body.location,
                             }})
@@ -265,9 +288,8 @@ module.exports = {
                             .catch(err=>{
                                 res.json({error:err,status:"500"}).status(500);
                             });
-                        }
-                      
-                      });
+                    }
+                   
                      
                     
                     
