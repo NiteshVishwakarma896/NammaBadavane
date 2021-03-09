@@ -28,7 +28,7 @@ module.exports = {
            const result = await customer.save();
             
            if(result){
-                var strmsg = `Your OTP for verification is ${otp}`;
+                var strmsg = `OTP for verification is ${otp}`;
                 var msg = urlencode(strmsg); 
                 var number = "91"+contact;
                 var apikey = process.env.TXT_LOCAL_API_KEY;
@@ -109,7 +109,7 @@ module.exports = {
                 .then(result=>{
                 
                     if(result.ok === 1){
-                        var strmsg = `Your OTP for verification is ${otp}`;
+                        var strmsg = `OTP for verification is ${otp}`;
                         var msg = urlencode(strmsg); 
                         var number = "91"+contact;
                         var apikey = process.env.TXT_LOCAL_API_KEY;
